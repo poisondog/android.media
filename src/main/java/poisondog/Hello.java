@@ -20,4 +20,7 @@ package poisondog;
  * @since 2016-07-15
  */
 public class Hello {
+	public String get() {
+		return "Hello World!";
+	}
 }
