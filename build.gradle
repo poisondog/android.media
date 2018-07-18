@@ -3,15 +3,17 @@ project.version = '0.0.1'
 
 buildscript {
 	repositories {
+		google()
 		jcenter()
 	}
 
 	dependencies {
-		classpath 'com.android.tools.build:gradle:2.2.1'
+		classpath 'com.android.tools.build:gradle:3.1.0'
 	}
 }
 
 repositories {
+	google()
 	jcenter()
 }
 
@@ -19,7 +21,7 @@ apply plugin: 'com.android.library'
 
 android {
 	compileSdkVersion 24
-	buildToolsVersion "25.0.2"
+	buildToolsVersion "27.0.3"
 
 	lintOptions {
 		abortOnError false
