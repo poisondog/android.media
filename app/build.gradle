@@ -26,8 +26,8 @@ android {
 	defaultConfig {
 		versionCode 1
 		versionName project.version
-		minSdkVersion 14
-		targetSdkVersion 17
+		minSdkVersion 24
+		targetSdkVersion 24
 		multiDexEnabled true
 	}
 

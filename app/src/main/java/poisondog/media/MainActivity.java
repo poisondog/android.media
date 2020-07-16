@@ -13,28 +13,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package poisondog.start.android.app;
+package poisondog.android.media;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.widget.TextView;
-import poisondog.Hello;
-import poisondog.start.android.app.R;
+import android.view.SurfaceView;
+import java.io.IOException;
 
 /**
  * @author Adam Huang
- * @since 2018-01-10
+ * @since 2020-07-16
  */
 public class MainActivity extends Activity {
 	private DialogInterface.OnClickListener mListener;
+	private MediaPlayer mPlayer;
+	private SurfaceView mPreview;
+	private String mUrl = "https://videos.files.wordpress.com/gDGhZoCH/cv-triangle-trial_spot-official_en_hd.mp4";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		Hello var = new Hello();
-		TextView text = (TextView) findViewById(R.id.content);
-		text.setText(var.get());
+
+		mPreview = (SurfaceView)findViewById(R.id.surfaceView);
+
+		mPlayer = new MediaPlayer();
+		mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+			public void onPrepared(MediaPlayer mp) {
+				mPlayer.setDisplay(mPreview.getHolder());
+				mPlayer.start();
+			}
+		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		try {
+			mPlayer.setDataSource(mUrl);
+			mPlayer.prepareAsync();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (mPlayer.isPlaying())
+			mPlayer.stop();
 	}
 }
